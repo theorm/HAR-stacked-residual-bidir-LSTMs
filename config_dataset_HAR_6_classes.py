@@ -109,7 +109,7 @@ def load_X(X_signals_paths):
     X_signals = []
 
     for signal_type_path in X_signals_paths:
-        file = open(signal_type_path, 'rb')
+        file = open(signal_type_path, 'r')
         # Read dataset from disk, dealing with text files' syntax
         X_signals.append(
             [np.array(serie, dtype=np.float32) for serie in [
@@ -139,7 +139,7 @@ def load_y(y_path):
         argument: y_path str attibute of Y: 'train' or 'test'
         return: Y ndarray / tensor of the 6 one_hot labels of each sample
     """
-    file = open(y_path, 'rb')
+    file = open(y_path, 'r')
     # Read dataset from disk, dealing with text file's syntax
     y_ = np.array(
         [elem for elem in [
@@ -170,9 +170,9 @@ trial_name = "{}x{}".format(n_layers_in_highway, n_stacked_layers)
 for learning_rate in [0.001]:  # [0.01, 0.007, 0.001, 0.0007, 0.0001]:
     for lambda_loss_amount in [0.005]:
         for clip_gradients in [15.0]:
-            print "learning_rate: {}".format(learning_rate)
-            print "lambda_loss_amount: {}".format(lambda_loss_amount)
-            print ""
+            print("learning_rate: {}".format(learning_rate))
+            print("lambda_loss_amount: {}".format(lambda_loss_amount))
+            print("")
 
             class EditedConfig(Config):
                 def __init__(self, X, Y):
@@ -194,12 +194,12 @@ for learning_rate in [0.001]:  # [0.01, 0.007, 0.001, 0.0007, 0.0001]:
             accuracy_out, best_accuracy, f1_score_out, best_f1_score = (
                 run_with_config(EditedConfig, X_train, y_train, X_test, y_test)
             )
-            print (accuracy_out, best_accuracy, f1_score_out, best_f1_score)
+            print((accuracy_out, best_accuracy, f1_score_out, best_f1_score))
 
             with open('{}_result_HAR_6.txt'.format(trial_name), 'a') as f:
                 f.write(str(learning_rate) + ' \t' + str(lambda_loss_amount) + ' \t' + str(clip_gradients) + ' \t' + str(
                     accuracy_out) + ' \t' + str(best_accuracy) + ' \t' + str(f1_score_out) + ' \t' + str(best_f1_score) + '\n\n')
 
-            print "________________________________________________________"
-        print ""
-print "Done."
+            print("________________________________________________________")
+        print("")
+print("Done.")

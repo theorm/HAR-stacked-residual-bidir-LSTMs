@@ -91,3 +91,6 @@ ENV/
 gpu.txt
 _*
 
+logs/
+
+*result*.txt
